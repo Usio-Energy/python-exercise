@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+venv/
+app/celerybeat-schedule.db
+app/db.sqlite3
