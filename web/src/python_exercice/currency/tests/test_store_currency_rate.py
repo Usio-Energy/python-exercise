@@ -52,3 +52,12 @@ class StoreCurrencyRateTests(TestCase):
         self.assertTrue(type(first_currency_rate.currency_base_name) == str)
         self.assertTrue(type(first_currency_rate.rate) == float and first_currency_rate.rate > 0)
         self.assertTrue(type(first_currency_rate.date) == datetime.date)
+        
+        # test unique rate per date/base/currency
+        store_currency_rate()
+        count_duplicate_first_item = CurrencyRate.objects.filter(
+            currency_name=first_currency_rate.currency_name,
+            currency_base_name=first_currency_rate.currency_base_name,
+            date=first_currency_rate.date,
+        ).count()
+        self.assertTrue(count_duplicate_first_item == 1)

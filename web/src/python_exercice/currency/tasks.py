@@ -57,12 +57,11 @@ def store_currency_rate(api_mock_content=None):
 
     # store rate in db
     for currency, value in content['rates'].items():
-        currency_rate = CurrencyRate(
+        currency_rate, created = CurrencyRate.objects.get_or_create(
             currency_name = currency,
             currency_base_name = content['base'],
             date = content['date'],
-            rate = value,
+            defaults={'rate': value},
         )
-        currency_rate.save()
 
     return True
