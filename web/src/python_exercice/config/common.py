@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     # Third Party Apps here
     'django_extensions',
     # Project Apps here
+    'python_exercice.currency',
 )
 
 """ Test Suite """
