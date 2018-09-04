@@ -53,9 +53,7 @@ BROKER_URL = 'redis://redis/0'
 CELERY_BROKER_URL = BROKER_URL
 
 # FIXER.IO API
-FIXER_CURRENCY_BASE = 'USD'
 FIXER_API_ACCESS_KEY = '6601e795b9b564eb003fc11b77d4a720'
-FIXER_API_ENDPOINTS = 'http://data.fixer.io/api/latest?access_key={}&base={}'.format(
+FIXER_API_ENDPOINTS = 'http://data.fixer.io/api/latest?access_key={}'.format(
     FIXER_API_ACCESS_KEY,
-    FIXER_CURRENCY_BASE,
 )

@@ -102,8 +102,8 @@ CELERY_TIMEZONE = 'Europe/London'
 CELERYBEAT_SYNC_EVERY = 0
 
 # CELERYBEAT_SCHEDULE = {
-#     'store-currency-rate_database': {
-#         'task': 'python_exercice.names.tasks.store-currency-rate',
+#     'store-currency-rate=database': {
+#         'task': 'python_exercice.currency.tasks.store_currency_rate',
 #         'schedule': crontab(minute='*/5'),
 #     },
 # }
