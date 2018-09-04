@@ -1,0 +1,8 @@
+*.pyc
+
+db/
+logs/
+media/
+node_modules
+yarn.lock
+celerybeat-schedule
