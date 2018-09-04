@@ -18,6 +18,7 @@ services:
       - ASSET_PATH=/s
     command: >
       bash -c "/usr/local/bin/django-admin migrate
+      && /usr/local/bin/django-admin collect_last_month_rates
       && /usr/local/bin/django-admin runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
@@ -25,6 +26,7 @@ services:
       - "./web:/usr/src/python_exercice"
     depends_on:
       - db
+      - celery
     links:
       - db:db
 

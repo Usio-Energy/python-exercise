@@ -40,11 +40,11 @@ FIXER_CURRENCY_JSON_SCHEMA = {
     max_retries=3,
     name='store_currency_rate'
 )
-def store_currency_rate(api_mock_content=None):
+def store_currency_rate(date='latest', api_mock_content=None):
     content = api_mock_content
 
     if not api_mock_content:
-        request = requests.get(settings.FIXER_API_ENDPOINTS)
+        request = requests.get(settings.FIXER_API_ENDPOINTS.format(date, settings.FIXER_API_ACCESS_KEY))
 
         if request.status_code != 200:
             raise Exception('Fixer Api call error, status: {}'.format(request.status_code))

@@ -10,6 +10,7 @@ from .common import *
 
 ALLOWED_HOSTS = ['localhost']
 BASE_URL = 'http://localhost'
+TIME_ZONE = 'Europe/London'
 
 # Ipython Notebook, bind to this ip so it can be forwarded
 IPYTHON_ARGUMENTS = [
@@ -54,6 +55,4 @@ CELERY_BROKER_URL = BROKER_URL
 
 # FIXER.IO API
 FIXER_API_ACCESS_KEY = '6601e795b9b564eb003fc11b77d4a720'
-FIXER_API_ENDPOINTS = 'http://data.fixer.io/api/latest?access_key={}'.format(
-    FIXER_API_ACCESS_KEY,
-)
+FIXER_API_ENDPOINTS = 'http://data.fixer.io/api/{}?access_key={}'
