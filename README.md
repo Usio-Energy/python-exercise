@@ -1,4 +1,4 @@
-# Install locally
+# Install locally
 
 Prereq - docker & docker compose. https://docs.docker.com/install/
 ```
