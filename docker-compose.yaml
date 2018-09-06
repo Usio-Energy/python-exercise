@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  # runs db on default port 5432 with password postgrespass user postgres
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    container_name: postgres_db
+    environment:
+      POSTGRES_PASSWORD: postgrespass
+    volumes:
+      - ./rates_schema.sql:/docker-entrypoint-initdb.d/1-rates_schema.sql
+
+  app:
+    container_name: application
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      API_KEY: $API_KEY
+    depends_on:
+      - db
