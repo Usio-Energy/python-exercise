@@ -12,7 +12,7 @@ from fixercise.storage import *
 # Setup logging to log file
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-                    datefmt='%m-%d %H:%M',
+                    datefmt='%Y-%m-%d %H:%M',
                     filename=os.path.join(LOG_DIR, "%s.log" % APP_NAME),
                     filemode='w')
 console = logging.StreamHandler()
@@ -55,7 +55,6 @@ def run():
     logging.info("%d dates to retrieve" % len(dates_to_get))
 
     for date in dates_to_get:
-        print(date)
         try:
             logging.info("Getting rates for %s" % date)
             response = get_historic_rates(date)
