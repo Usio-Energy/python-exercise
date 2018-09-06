@@ -2,7 +2,7 @@ import unittest
 import tempfile
 import shutil
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from fixercise.storage import *
 
 import tests.testutils as testutils
@@ -44,6 +44,7 @@ class TestStorage(unittest.TestCase):
         # Get a third rate which gets written to a different location on disk
         date_3 = datetime(2017, 1, 3, 11)   # A Tuesday
 
+        # We now store dates and make sure the ones we have are expected
         rates_1 = testutils.get_specific_date_data(date_1)
         store_rates(rates_1, self.test_dir)
 
@@ -75,11 +76,48 @@ class TestStorage(unittest.TestCase):
         sunday_rates = testutils.get_specific_date_data(sunday)
 
         with self.assertRaises(WeekendException,
-                               msg="Trying to store weekend rates should throw an exception"):
+                               msg="""Trying to store weekend rates
+                               should throw an exception"""):
             store_rates(sunday_rates, self.test_dir)
 
     def test_store_month_of_rates(self):
-        pass
+        """This requires some explanation:
+            We want to make sure that if we store a month of rates data
+            we will actually have all the relevant rates in our store.
+
+            We also want to make sure that we capture all the weekend
+            exceptions that get thrown.
+
+            Starting from Jan 2nd, 2017, we play forward for 31 days.
+            This includes 23 weekdays and 8 weekend days. We'll check to
+            make sure this is what we get.
+        """
+
+        # get a range of dates
+        dates = []
+        first_date = datetime(2017, 1, 2)  # Still a Monday
+        for d in range(0, 31):
+            dates.append(first_date + timedelta(days=d))
+
+        # Get mock rates data for each date
+        month_of_rates = [testutils.get_specific_date_data(d) for d in dates]
+
+        weekend_day_count = 0
+
+        for rates in month_of_rates:
+            try:
+                store_rates(rates, self.test_dir)
+            except WeekendException as e:
+                weekend_day_count += 1
+
+        rate_files = os.listdir(self.test_dir)
+
+        self.assertEqual(23, len(rate_files),
+                         "There should be 23 weekdays in date range")
+        self.assertEqual(8, weekend_day_count,
+                         "There should be 8 weekend days in date range")
+
+
 
 
 

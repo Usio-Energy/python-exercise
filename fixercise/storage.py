@@ -1,5 +1,5 @@
 import json
-import os.path
+import os
 from datetime import datetime
 
 
@@ -10,6 +10,9 @@ class WeekendException(Exception):
          are going to develop to that requirement
     """
     pass
+
+# There are a lot of ways to persist data, but in this instance we are
+# going with the time-honoured classic of writing it as a file to disk
 
 
 def store_rates(rates, path):
@@ -36,3 +39,9 @@ def retrieve_rates(date, path):
         rates = json.load(f)
 
     return rates
+
+
+def list_historic_dates(path):
+    """Returns a list of dates we have historic rates for."""
+    historic_rates = os.listdir(path)
+    return [filename[:10] for filename in historic_rates]

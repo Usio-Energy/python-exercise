@@ -1,32 +1,50 @@
 import requests
-import os
 
-# For dev purposes, let's get this from an envvar
-FIXER_API_KEY = os.getenv("FIXER_API_KEY", '')
+from fixercise.config import *
 
-# TODO: refactor this
+
+# Let's define ourselves some new exceptions
+class BadResponseException(Exception):
+    """We raise this when we don't get a 200 response."""
+    pass
+
+
+class BadCallException(Exception):
+    """We raise this when we get a failed API call."""
+    pass
 
 
 def get_current_rates():
-    # TODO: extract this URL somewhere
     response = requests.get(
-        "http://data.fixer.io/api/latest?access_key=%s&format=1"
-        % FIXER_API_KEY)
+        "%s/latest?access_key=%s&format=1"
+        % (FIXER_API_URL, FIXER_API_KEY))
 
-    # TODO: handle different status codes
+    if response.status_code != 200:
+        raise BadResponseException("Response returned status %d"
+                                   % response.status_code)
 
-    return response
+    data = response.json()
+
+    if not data["success"]:
+        raise BadCallException(data["error"])
+
+    return data
 
 
 def get_historic_rates(historic_date):
     """Gets rates from a historic date.
         historic_date is ISO date-formatted string YYYY-MM-DD
     """
-    # TODO: extract this URL somewhere
     response = requests.get(
-        "http://data.fixer.io/api/%slatest?access_key=%s&format=1"
-        % (historic_date, FIXER_API_KEY))
+        "%s/%s?access_key=%s&format=1"
+        % (FIXER_API_URL, historic_date, FIXER_API_KEY))
 
-    # TODO: handle different status codes
+    if response.status_code != 200:
+        raise BadResponseException("Response returned status %d"
+                                   % response.status_code)
 
-    return response
+    data = response.json()
+    if not data["success"]:
+        raise BadCallException(data["error"])
+
+    return data
