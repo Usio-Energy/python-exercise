@@ -33,4 +33,4 @@ Some caveats to this:
 - The use of appdirs to store the data and logs is kind of hacky. With the default config you have to go hunting for the data in your home directory. A fully-featured production-ready version of this would have configurable storage to different paths, including cloud storage.
 
 ## How I would deploy and monitor this in the wild
-This is probably best deployed as a containerised microservice. In such an environment it would make more sense to write both the data and logs to a serverless purpose-built service (such as AWS S3 or DynamoDB).
+This is probably best deployed as an ephemeral containerised microservice, (i.e. Docker scheduled to run daily on some cloud compute platform). In such an environment it would make more sense to write both the data and logs to a "serverless" purpose-built service (such as AWS S3 or DynamoDB). This would allow monitoring of the service outside of the lifetime of the container that runs it.
