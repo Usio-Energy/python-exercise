@@ -22,6 +22,7 @@ console.setFormatter(formatter)
 logging.getLogger('retrieval').addHandler(console)
 
 
+# These functions might make more sense in a dates helpers file
 def get_last_month_dates():
     """Returns a list of non_weekend dates in the past 31 days."""
     now = datetime.now()
