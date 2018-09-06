@@ -21,11 +21,11 @@ class TestStorage(unittest.TestCase):
     def test_store_and_retrieve_rates(self):
 
         # Specific date
-        specific_date = datetime(2017, 1, 1)
+        specific_date = datetime(2017, 1, 2)  # A Monday, for clarity
         specific_iso_date = specific_date.strftime('%Y-%m-%d')
 
         # Mock JSON
-        rates = testutils.get_specific_date_data(datetime(2017, 1, 1))
+        rates = testutils.get_specific_date_data(specific_date)
 
         # Store and retrieve
         store_rates(rates, self.test_dir)
@@ -59,16 +59,28 @@ class TestStorage(unittest.TestCase):
 
         files = os.listdir(self.test_dir)
         self.assertEqual(1, len(files),
-                         "there should be one file in the directory")
+                         "There should be one file in the directory")
 
         rates_3 = testutils.get_specific_date_data(date_3)
         store_rates(rates_3, self.test_dir)
 
         files = os.listdir(self.test_dir)
         self.assertEqual(2, len(files),
-                         "there should be two files in the directory")
+                         "There should be two files in the directory")
 
     def test_weekend_exception(self):
+
+        # Get rates from a weekend date
+        sunday = datetime(2017, 1, 1)  # A Sunday
+        sunday_rates = testutils.get_specific_date_data(sunday)
+
+        with self.assertRaises(WeekendException,
+                               msg="Trying to store weekend rates should throw an exception"):
+            store_rates(sunday_rates, self.test_dir)
+
+    def test_store_month_of_rates(self):
         pass
+
+
 
 
