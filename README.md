@@ -26,11 +26,11 @@ Some caveats to this:
 - Data is stored ordered both lexically and by time with the ISO date format, which makes it easy to pull it into some other application for analysis. An interesting side-effect of this is that it could be put into a date-keyed key-value store very easily.
 
 ## Bits I'm less proud of
-- The config is horrible.
+- The config is horrible. There is a secret in the source code, and I am deeply, deeply unhappy about this horrid state of affairs.
 - There is a weird bug with logging where it seems to clobber the entire log file with each run. This is almost certainly caused by a logger config problem but I don't have time to chase it down.
 - I'm not entirely happy with the cron scheduling. It's fragile, platform-dependent, and cron is a fairly archaic way of doing things. I wasn't sure how else to do it given the time constraint, though.
 - I enforce the "no-weekend" rule in the program logic. I did this because this makes it testable by unit tests, but you would probably want a different real-world solution.
 - The use of appdirs to store the data and logs is kind of hacky. With the default config you have to go hunting for the data in your home directory. A fully-featured production-ready version of this would have configurable storage to different paths, including cloud storage.
 
 ## How I would deploy and monitor this in the wild
-This is probably best deployed as an ephemeral containerised microservice, (i.e. Docker scheduled to run daily on some cloud compute platform). In such an environment it would make more sense to write both the data and logs to a "serverless" purpose-built service (such as AWS S3 or DynamoDB). This would allow monitoring of the service outside of the lifetime of the container that runs it.
+This is probably best deployed as an ephemeral containerised microservice, (i.e. Docker scheduled to run daily on some cloud compute platform). This would also get rid of the config problem as you could set secrets, etc. as environment variables in whatever platform builds your Docker images. In such an environment it would make more sense to write both the data and logs to a "serverless" purpose-built service (such as AWS S3 or DynamoDB). This would allow monitoring of the service outside of the lifetime of the container that runs it.
