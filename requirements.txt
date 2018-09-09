@@ -1,0 +1,14 @@
+celery
+Flask
+redis
+Werkzeug
+requests
+pytest
+psycopg2
+flask-sqlalchemy
+dictalchemy
+sqlalchemy
+python-dateutil
+pytest
+
+git+https://github.com/clement-daubrenet/owly_transactions.git/#egg=transactions
