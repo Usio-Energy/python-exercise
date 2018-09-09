@@ -50,6 +50,7 @@ The version I used is actually Python 3.7.
 
 # Run the tests
 
+- source env/bin/activate
 - python -m pytest tests/
 
 
