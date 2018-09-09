@@ -9,7 +9,7 @@ The application is based on 2 tasks:
 
 Multiple choices here:
 
-- Instead of storing the rates with a TTL of one months, I decided to do a task to clean them with a time parameter.
+- Instead of storing the rates with a TTL of one month, I decided to do a task to clean them with a time parameter.
 I have no strong opinion about what's best.
 - I store the rates in Posgres directly in JSON format. Faster to do than having one column per rate but the validation
 is weaker. Maybe using elasticsearch would have been better. Again, I just did something fast.
