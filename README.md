@@ -63,22 +63,24 @@ To run the application, use the commands in commands.sh:
 - Start the workers: celery -A celery_worker worker -l info
 - Start the beat: celery -A celery_worker beat -l info
 
-
-# Deploy and monitoring in production:
+# Deploy and monitor in production:
 
 I did 2 different config classes (tasks/config.py) one for development and one for production.
-Based on those, I would:
+Based on those, I would create the database on the production server, update the production config class and:
 
-- First set up a log system with files (eg: 'usio_development.log' and 'usio_production.log')
+- Set up a log system with files (eg: 'usio_development.log' and 'usio_production.log')
 for each environment with rotation (using 'logging.handlers.RotatingFileHandler', see example in config.py) and then
 monitor the files.
 
-- Then, a smtp server handling to reveive email notifications when errors. ('logging.handlers.SMTPHandler', see
+- Then, to be notified when errors, a smtp server handling to reveive emails ('logging.handlers.SMTPHandler', see
 example in config.py)
 
-- To differentiate production and development I would use an environment variable.
+- To differentiate production and development I would use environment variables.
 
-- Finally, deployment scripts (one for dev, one for prod) on the servers: pulling the source and running the app.
-The workers and beat would be deamonized on the servers.
+- Finally, deployment scripts (one for dev, one for prod) on the servers: pulling the source, running the tests
+and running the apps. The workers and beat would be deamonized on the servers.
+
+- To trigger the tests and/or the deployment: a Jenkins server.
 
 - Potentially dockerize the app with more time.
+
