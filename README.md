@@ -72,8 +72,8 @@ Based on those, I would create the database on the production server, update the
 for each environment with rotation (using 'logging.handlers.RotatingFileHandler', see example in config.py) and then
 monitor the files.
 
-- Then, to be notified when errors, a smtp server handling to reveive emails ('logging.handlers.SMTPHandler', see
-example in config.py)
+- Then, to be notified when errors, a smtp server sending emails to the development team ('logging.handlers.SMTPHandler', see
+example in config.py).
 
 - To differentiate production and development I would use environment variables.
 
