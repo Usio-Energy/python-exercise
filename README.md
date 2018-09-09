@@ -77,8 +77,8 @@ example in config.py).
 
 - To differentiate production and development I would use environment variables.
 
-- Finally, deployment scripts (one for dev, one for prod) on the servers: pulling the source, running the tests
-and running the apps. The workers and beat would be deamonized on the servers.
+- Finally, deployment scripts (one for dev, one for prod) on the servers: pulling the latest source, running the tests
+and running the app. The workers and beat would be deamonized on the servers.
 
 - To trigger the tests and/or the deployment: a Jenkins server.
 
