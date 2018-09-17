@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  ingest:
+    build:
+      context: .
+    environment:
+      PYTHONPATH: /app
+    links:
+      - broker
+      - storage
+    volumes:
+      - ./src:/app
+    entrypoint: >
+      dockerize -timeout 10s
+        -wait tcp://broker:6379
+        -wait tcp://storage:5432
+    command: |
+      ash -c "python -m ingest.bootstrap && celery -A ingest.periodic -l info beat"
+  broker:
+    image: redis:4.0.11-alpine
+    volumes:
+      - persistence-broker:/data
+  storage:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_DB: ingest
+    volumes:
+      - persistence-storage:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  persistence-storage:
+    driver: local
+  persistence-broker:
+    driver: local
