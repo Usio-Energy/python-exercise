@@ -6,6 +6,7 @@ source, in this case fx rates from [https://fixer.io/](Fixer).
 ## Contents
  - [Prerequisites](#prerequisites)
  - [Running](#running)
+ - [Tests](#tests)
 
 ## Prerequisites
 This project requires [Docker](https://docs.docker.com/install/) and
@@ -25,4 +26,10 @@ that satisfies the prerequisites outlined above, `cd` into the root of the
 repository and invoke with
 ```
 docker-compose up --build
+```
+
+## Tests
+Once the container is built, a test run can be invoked with
+```
+docker-compose run --rm ingest pytest /test
 ```
