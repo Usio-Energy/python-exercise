@@ -1,18 +1,35 @@
-# Python Exercise
+# Simple periodic data ingestion service
 
-High level requirements:
+A very basic service to periodically ingest and store data from a remote
+source, in this case fx rates from [https://fixer.io/](Fixer).
 
-- Use the http://fixer.io/ API to ingest currency rates.
-- Have the ingest & store procedure run daily at 9:00AM.
-- Ingest and store rates for all days *except* weekends.
-- Ensure the system holds at least the last month of rates information.
+## Contents
+ - [Prerequisites](#prerequisites)
+ - [Running](#running)
+ - [Tests](#tests)
 
-Technical requrements:
+## Prerequisites
+This project requires [Docker](https://docs.docker.com/install/) and
+[Docker Compose](https://docs.docker.com/compose/install/). An API key must
+be acquired from [Fixer](https://fixer.io/signup/free), tell the application
+about your API key by copying the provided example Docker Compose overrides
+file to its proper address and subsituting the example value of `FIXER_API_KEY`
+with your key.
 
-- Write code as you normally would write for deployment to a production environment.
-- Use Python version 3.6+.
-- Provide instructions on how to install and run the application.
-- Document (in a text/markdown file) how you could go about deploying & monitoring the application.
-- If you ran out of time on any of the high level requirements, write down which you specifically did not yet implement.
+```
+cp xdocker-compose.override.yml docker-compose.override.yml
+```
 
-Try to spend no more than 4 hours on the exercise. Submit a pull request with your code or send it directly via email.
+## Running
+Running the application is very easy. Clone this repository onto a computer
+that satisfies the prerequisites outlined above, `cd` into the root of the
+repository and invoke with
+```
+docker-compose up --build
+```
+
+## Tests
+Once the container is built, a test run can be invoked with
+```
+docker-compose run --rm ingest pytest /test
+```
