@@ -7,9 +7,8 @@ from ingest import core
 
 def main():
     'Bootstrap service with 30 days historical data'
-    connection, table = core.connection_table()
-    today = datetime.date.today()
 
+    today = datetime.date.today()
     # the previous 30 weekdays
     dates_required = filter(
         lambda date: date.weekday() < 6,
@@ -17,6 +16,7 @@ def main():
     )
 
     # populate as needed
+    connection, table = core.connection_table()
     for date in dates_required:
         exists = sqla.exists().where(table.c.date == date)
         if not connection.execute(sqla.select([exists])).scalar():

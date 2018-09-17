@@ -5,6 +5,7 @@ source, in this case fx rates from [https://fixer.io/](Fixer).
 
 ## Contents
  - [Prerequisites](#prerequisites)
+ - [Running](#running)
 
 ## Prerequisites
 This project requires [Docker](https://docs.docker.com/install/) and
@@ -16,4 +17,12 @@ with your key.
 
 ```
 cp xdocker-compose.override.yml docker-compose.override.yml
+```
+
+## Running
+Running the application is very easy. Clone this repository onto a computer
+that satisfies the prerequisites outlined above, `cd` into the root of the
+repository and invoke with
+```
+docker-compose up --build
 ```
