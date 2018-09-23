@@ -31,7 +31,9 @@ class BasicsTestCase(unittest.TestCase):
                 self.rates = rates
         self.Base.metadata.create_all(bind = engine)
         self.Currency = Currency
-        self.fixer_object = Fixer('','','')
+        import logging
+        testlogger = logging.getLogger(__name__)
+        self.fixer_object = Fixer('','','',testlogger.info)
         self.db.query(self.Currency).delete()
     
     @classmethod
