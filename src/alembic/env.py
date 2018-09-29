@@ -7,8 +7,7 @@ from logging.config import fileConfig
 # access to the values within the .ini file in use.
 config = context.config
 import os
-# config.set_main_option('sqlalchemy.url', os.environ['DATABASE_URL'])
-config.set_main_option('sqlalchemy.url', 'sqlite:////data/tmp.db')
+config.set_main_option('sqlalchemy.url', os.environ['DATABASE_URL'])
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

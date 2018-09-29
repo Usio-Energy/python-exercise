@@ -9,8 +9,8 @@ services:
     # the command isn't working, as posgres isnt ready fast enough and i cant
     # get the healthcheck to work. for local testing run this after running
     # docker-compose up
-    # docker-compose exec app alembic upgrade head
-    command: "alembic upgrade head"
+    # docker-compose run app alembic upgrade head
+    # command: "alembic upgrade head"
     environment:
       - "FIXER_API_KEY=${FIXER_API_KEY}"
       - "FIXER_URL=${FIXER_URL}"
