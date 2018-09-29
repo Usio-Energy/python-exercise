@@ -41,4 +41,6 @@ Docker has been used for development and deployment to a production environment 
     - set this as a trigger for the lambda function using the aws console or whatever method you are most familiar with
 
 
+# Monitoring
+AWS cloudwatch can be used for monitoring of the app, at its simplest it can be configured to store output of the logger. more advanced would be to setup SMS alerts
 
