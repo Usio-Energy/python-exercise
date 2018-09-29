@@ -8,6 +8,7 @@ from models import Batch, Currency, CurrencyRate
 from utils import create_session
 
 logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def get_or_create_currency_instances(currency_codes, session):
