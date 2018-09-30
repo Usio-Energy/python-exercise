@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: "postgres:9.5"
+    healthcheck:
+      test: ["CMD-SHELL", "sleep 3 && pg_isready -U postgres"]
+  app:
+    build: "."
+    # the command isn't working, as posgres isnt ready fast enough and i cant
+    # get the healthcheck to work. for local testing run this after running
+    # docker-compose up
+    # docker-compose run app alembic upgrade head
+    # command: "alembic upgrade head"
+    environment:
+      - "FIXER_API_KEY=${FIXER_API_KEY}"
+      - "FIXER_URL=${FIXER_URL}"
+      - "DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres"
+    depends_on:
+      - "db"
+    volumes:
+      - "./src:/src"
+
