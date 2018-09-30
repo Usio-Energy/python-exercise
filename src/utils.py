@@ -16,19 +16,3 @@ def create_session(engine=None):
     Session = sessionmaker()
     Session.configure(bind=engine)
     return Session()
-
-
-class SessionManager:
-    def __init__(self, autocommit=False):
-        self.session = None
-        self._autocommit = autocommit
-
-    def __enter__(self):
-        self.session = create_session()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if exc_val is not None:
-            self.session.rollback()
-        if self._autocommit is True:
-            self.session.commit()
